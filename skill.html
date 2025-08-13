@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel ="icon" type="image/png" href="1.png">
+  <title>Skills</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Didact+Gothic&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bitter&display=swap" rel="stylesheet">
+
+  <style>
+    
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+  
+
+    .wrapper {
+      display: flex;
+      width: 200vw;
+      height: 100vh;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .page {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    .title {
+      font-family: 'Libre Baskerville', sans-serif;
+      color: #102E50;
+      font-size: 4.5rem;
+      margin-bottom: 200px;
+    }
+
+    .card-stack {
+      position: relative;
+      width: 600px;
+      height: 400px;
+      perspective: 1500px;
+    }
+
+    .card {
+      font-family: 'Bodoni Moda', serif;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #ffffff, #f1f1ff);
+      color: rgb(0, 0, 0);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 2.5rem;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transform: translateY(80px) scale(0.9);
+      transition: all 0.8s ease-in-out;
+    }
+
+    .card.active {
+      z-index: 3;
+      opacity: 1;
+      transform: translateY(0px) scale(1.05);
+    }
+
+    .card.previous {
+      z-index: 2;
+      opacity: 0.3;
+      transform: translate(-40px, -40px) scale(0.95) rotate(-5deg);
+    }
+
+    .card.next {
+      z-index: 1;
+      opacity: 0.2;
+      transform: translate(40px, 40px) scale(0.9) rotate(5deg);
+    }
+
+    .swipe-btn {
+      position: absolute;
+      bottom: 40px;
+      right: 30px;
+      background: #000;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    .card.policy {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card-icon {
+      width: 120px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    @keyframes swingY {
+      0%   { transform: rotateY(0deg); }
+      25%  { transform: rotateY(15deg); }
+      50%  { transform: rotateY(0deg); }
+      75%  { transform: rotateY(-15deg); }
+      100% { transform: rotateY(0deg); }
+    }
+
+    .card-icon.rotate {
+      animation: swingY 3s ease-in-out infinite;
+      transform-origin: center center;
+      transform-style: preserve-3d;
+    }
+
+    #page1 {
+      background: #FFFDF6;
+    }
+
+    #page2 {
+      background: #FFFDF6;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #FAF7F3;
+      z-index: 10000;
+      padding: 15px 60px 15px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      display: flex;
+      justify-content: flex-end; 
+    }
+
+    .navbar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 30px;
+      margin-right: 60px;
+    }
+
+    .navbar li {
+      display: inline;
+    }
+
+    .navbar a {
+      color: #27445D;
+      text-decoration: none;
+      font-family: Bitter, serif;
+      font-size: 1rem;
+      transition: color 0.3s;
+      line-height: 2;
+    }
+
+    .navbar a:hover {
+      color: #f16100;
+    }
+  </style>
+</head>
+<body>
+
+ <div id="navbar-container"></div>
+
+
+  <div class="wrapper" id="wrapper">
+    <!-- Technical Skills Page -->
+    <div class="page" id="page1">
+      <div class="title">Technical Skills</div>
+      <div class="card-stack" id="techStack">
+        <div class="card policy">
+          <img src="./skill/policy.png" alt="Policy Icon" class="card-icon">
+          <p> Policy and Procedure Development </p>
+        </div>
+        <div class="card python">
+          <img src="./skill/python.png" alt="Python Icon" class="card-icon">
+          <p> Python </p>
+        </div>
+        <div class="card html">
+          <img src="./skill/html.png" alt="HTML Icon" class="card-icon">
+          HTML
+        </div>
+        <div class="card css">
+          <img src="./skill/css.png" alt="CSS Icon" class="card-icon">
+          CSS
+        </div>
+        <div class="card ai">
+          <img src="./skill/ai.png" alt="AI Icon" class="card-icon">
+          Adobe Illustrator
+        </div>
+        <div class="card id">
+          <img src="./skill/id.png" alt="ID Icon" class="card-icon">
+          Adobe InDesign
+        </div>
+      </div>
+    </div>
+
+    <!-- Soft Skills Page -->
+    <div class="page" id="page2">
+      <div class="title">Soft Skills</div>
+      <div class="card-stack" id="softStack">
+        <div class="card communication">
+          <img src="./skill/com.webp" alt="Communication Icon" class="card-icon">
+          Communication
+        </div>
+        <div class="card Creativity">
+          <img src="./skill/creativity.webp" alt="Creativity Icon" class="card-icon">
+          Creativity
+        </div>
+        <div class="card team">
+          <img src="./skill/team.webp" alt="Team Icon" class="card-icon">
+          Teamwork
+        </div>
+        <div class="card time">
+          <img src="./skill/time.webp" alt="Time Icon" class="card-icon">
+          Time Management
+        </div>
+        <div class="card critical">
+          <img src="./skill/critical.webp" alt="Critical Icon" class="card-icon">
+          Critical Thinking
+        </div>
+        <div class="card leader">
+          <img src="./skill/leadership.webp" alt="Leadership Icon" class="card-icon">
+          Leadership
+        </div>
+        <div class="card project">
+          <img src="./skill/project.webp" alt="Project Icon" class="card-icon">
+          Project Management
+        </div>
+        <div class="card problem">
+          <img src="./skill/problem.webp" alt="Problem Icon" class="card-icon">
+          Problem Solving
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="swipe-btn" onclick="togglePage()">Swipe</button>
+
+  <script>
+    const wrapper = document.getElementById("wrapper");
+    let currentPage = 0;
+
+    const techCards = document.querySelectorAll("#techStack .card");
+    const softCards = document.querySelectorAll("#softStack .card");
+
+    let techIndex = 0;
+    let softIndex = 0;
+
+    function updateStack(cards, index) {
+      cards.forEach((card, i) => {
+        card.classList.remove("active", "previous", "next");
+        if (i === index) card.classList.add("active");
+        else if (i === (index - 1 + cards.length) % cards.length) card.classList.add("previous");
+        else card.classList.add("next");
+      });
+    }
+
+    function togglePage() {
+      currentPage = currentPage === 0 ? 1 : 0;
+      wrapper.style.transform = `translateX(-${currentPage * 100}vw)`;
+    }
+
+    let isScrolling = false;
+    let scrollTimer;
+
+    function handleScroll(e) {
+      if (isScrolling) return;
+
+      const direction = e.deltaY > 0 ? 'down' : 'up';
+
+      if (currentPage === 0) {
+        techIndex = direction === 'down'
+          ? (techIndex + 1) % techCards.length
+          : (techIndex - 1 + techCards.length) % techCards.length;
+        updateStack(techCards, techIndex);
+      } else {
+        softIndex = direction === 'down'
+          ? (softIndex + 1) % softCards.length
+          : (softIndex - 1 + softCards.length) % softCards.length;
+        updateStack(softCards, softIndex);
+      }
+
+      isScrolling = true;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        isScrolling = false;
+      }, 600);
+    }
+
+    updateStack(techCards, techIndex);
+    updateStack(softCards, softIndex);
+    window.addEventListener("wheel", handleScroll, { passive: true });
+
+    // ✨ Observer for rotating icons only when visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const icon = entry.target;
+        if (entry.isIntersecting) {
+          icon.classList.add('rotate');
+        } else {
+          icon.classList.remove('rotate');
+        }
+      });
+    }, {
+      root: null,
+      threshold: 0.6
+    });
+
+    document.querySelectorAll('.card-icon').forEach(icon => {
+      observer.observe(icon);
+    });
+
+     const navContainer = document.getElementById('navbar-container');
+
+    (async () => {
+      try {
+        // Make the path explicit and relative to the current page
+        const res = await fetch('./navbar.html', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const html = await res.text();
+        navContainer.innerHTML = html;
+      } catch (err) {
+        console.error('Navbar load failed:', err);
+        // Fallback so the page still has a nav
+        navContainer.innerHTML = `
+          <nav class="navbar">
+            <ul>
+              <li><a href="./index.html">Home</a></li>
+              <li><a href="./aboutme.html">About me</a></li>
+              <li><a href="./project.html">Projects</a></li>
+              <li><a href="./skill.html">Skills</a></li>
+              <li><a href="./exp.html">Experience</a></li>
+              <li><a href="./cert.html">Certification</a></li>
+              <li><a href="./contact.html">Contact me</a></li>
+            </ul>
+          </nav>`;
+      }
+    })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel ="icon" type="image/png" href="1.png">
+  <title>Experiences</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      color: rgb(35, 29, 29);
+    }
+
+    .scroll-wrapper {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding-top: 72px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      text-align: center;
+      padding: 1.2rem 0;
+      font-weight: bold;
+      background-color: #ffffff;
+    }
+
+    .container {
+      display: flex;
+      flex: 1;
+      height: 100%;
+    }
+
+    .left {
+      width: 50%;
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      perspective: 1000px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    .left::-webkit-scrollbar {
+      display: none;
+    }
+
+    .image-scroll {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .image-scroll img {
+      width: 80%;
+      max-width: 100%;
+      height: 70vh;
+      object-fit: contain;
+      margin: auto;
+      scroll-snap-align: center;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+
+    .rotate {
+      animation: spinY 12s linear infinite;
+    }
+
+    @keyframes spinY {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(360deg);
+      }
+    }
+
+    .right {
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    #experienceText {
+      font-size: 1.3rem;
+      line-height: 2;
+      max-width: 600px;
+      white-space: pre-line;
+      text-align: left;
+      transition: opacity 0.4s ease;
+      margin-top: -100px;
+    }
+
+    #experienceText .date {
+      font-weight: bold;
+      color: #000000;
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    #experienceText .title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-bottom: 2px;
+    }
+
+    #experienceText .company {
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left, .right {
+        width: 100%;
+        height: 50%;
+      }
+
+      .right {
+        padding: 20px;
+        justify-content: center;
+      }
+
+      .image-scroll img {
+        height: 60vh;
+        width: 90%;
+      }
+
+      #experienceText {
+        text-align: center;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+        padding: 1rem 0;
+      }
+    }
+  .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #FAF7F3;
+      z-index: 10000;
+      padding: 15px 60px 15px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      display: flex;
+      justify-content: flex-end; 
+    }
+
+    .navbar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 30px;
+      margin-right: 60px;
+    }
+
+    .navbar li {
+      display: inline;
+    }
+
+    .navbar a {
+      color: #27445D;
+      text-decoration: none;
+      font-family: Bitter, serif;
+      font-size: 1rem;
+      transition: color 0.3s;
+      line-height: 2;
+    }
+
+    .navbar a:hover {
+      color: #f16100;
+    }
+
+  </style>
+</head>
+<body>
+ <div id="navbar-container"></div>
+
+  <div class="scroll-wrapper" id="scrollWrapper">
+
+    <!-- ✅ Normal Title -->
+    <div class="section-title"></div>
+
+    <div class="container">
+      <!-- Left: Scrollable Images -->
+      <div class="left" id="imageScroll">
+        <div class="image-scroll">
+          <img src="exp/vairav.png" alt="Experience 1" data-index="0">
+          <img src="exp/mst.png" alt="Experience 2" data-index="1">
+        </div>
+      </div>
+
+      <!-- Right: Dynamic Text -->
+      <div class="right">
+        <div id="experienceText">
+          <span class="date">September 2024 - Present</span>
+          <span class="title">Associate IS Auditor and GRC Analyst</span>
+          <span class="company">Vairav Technology Security Pvt. Ltd</span>
+
+          Conducted information systems audits, assessed compliance with security policies, and supported risk mitigation strategies.
+
+          Led GRC initiatives by implementing frameworks, managing audit documentation, and ensuring adherence to regulatory standards.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const descriptions = [
+      `
+<span class="date">September 2024 - Present</span>
+<span class="title">Associate IS Auditor and GRC Analyst</span>
+<span class="company">Vairav Technology Security Pvt. Ltd</span>
+
+Conducted information systems audits, assessed compliance with security policies, and supported risk mitigation strategies.
+
+Led GRC initiatives by implementing frameworks, managing audit documentation, and ensuring adherence to regulatory standards.
+      `,
+      `
+<span class="date">March 2024 - September 2024</span>
+<span class="title">Graphics Designer Intern</span>
+<span class="company">MySecondTeacher</span>
+
+Designed visual assets, layouts, and branding materials using Adobe Illustrator, Photoshop, and InDesign.
+      `
+    ];
+
+    const images = document.querySelectorAll('.image-scroll img');
+    const textElement = document.getElementById('experienceText');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const img = entry.target;
+        const index = img.getAttribute('data-index');
+
+        if (entry.isIntersecting) {
+          img.classList.add('rotate');
+          textElement.style.opacity = 0;
+          setTimeout(() => {
+            textElement.innerHTML = descriptions[index];
+            textElement.style.opacity = 1;
+          }, 200);
+        } else {
+          img.classList.remove('rotate');
+        }
+      });
+    }, {
+      root: document.querySelector('#imageScroll'),
+      threshold: 0.6
+    });
+
+    images.forEach(img => observer.observe(img));
+  
+    const navContainer = document.getElementById('navbar-container');
+
+    (async () => {
+      try {
+        // Make the path explicit and relative to the current page
+        const res = await fetch('./navbar.html', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const html = await res.text();
+        navContainer.innerHTML = html;
+      } catch (err) {
+        console.error('Navbar load failed:', err);
+        // Fallback so the page still has a nav
+        navContainer.innerHTML = `
+          <nav class="navbar">
+            <ul>
+              <li><a href="./index.html">Home</a></li>
+              <li><a href="./aboutme.html">About me</a></li>
+              <li><a href="./project.html">Projects</a></li>
+              <li><a href="./skill.html">Skills</a></li>
+              <li><a href="./exp.html">Experience</a></li>
+              <li><a href="./cert.html">Certification</a></li>
+              <li><a href="./contact.html">Contact me</a></li>
+            </ul>
+          </nav>`;
+      }
+    })();
+</script>
+    
+</body>
+</html>

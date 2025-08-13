@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel ="icon" type="image/png" href="1.png">
+  <title>Portfolio</title>
+  
+  <style>
+      @font-face {
+      font-family: 'MyFont';
+      src: url('fonts/russkopis.otf') format('opentype');
+      font-display: swap;
+    } 
+
+      @font-face {
+      font-family: 'MyFFont';
+      src: url('fonts/NewYork.otf') format('opentype');
+      font-display: swap;
+    } 
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%; width: 100%;
+      background-color: #121212;
+      overflow: hidden;
+      font-family: 'Space Grotesk', sans-serif;
+      position: relative;
+    }
+    #background-image {
+      background: url('./Home/bg.jpg') no-repeat center center;
+      background-size: cover;
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .photo-strip-wrapper {
+      position: fixed;
+      left: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 250px;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 4;
+      display: none;
+    }
+    .photo-strip-scroll {
+      display: flex;
+      flex-direction: column;
+      animation: infiniteScroll 20s linear infinite;
+    }
+    .photo-strip-wrapper:hover .photo-strip-scroll {
+      animation-play-state: paused;
+    }
+    @keyframes infiniteScroll {
+      0% { transform: translateY(0%); }
+      100% { transform: translateY(-50%); }
+    }
+    .photo-strip-scroll a {
+      display: block;
+      pointer-events: auto;
+    }
+    .photo-strip-scroll a.clickable {
+      pointer-events: auto;
+      outline: 3px solid #fff;
+    }
+    .photo-strip-scroll img {
+      width: 250px;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    .fade-top, .fade-bottom {
+      position: absolute;
+      width: 100%; height: 80px;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .fade-top {
+      top: 1;
+      background: linear-gradient(to bottom, #121212, transparent);
+    }
+    .fade-bottom {
+      bottom: 1;
+      background: linear-gradient(to top, #121212, transparent);
+    }
+    #camera {
+      position: fixed;
+      left: 30px;
+      top: 47%;
+      transform: translateY(-50%);
+      width: 380px;
+      height: auto;
+      z-index: 6;
+      display: none;
+    }
+    #camera img {
+      width: 100%; height: auto;
+      display: block;
+    }
+    #loading-screen {
+      height: 100%; width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #121212;
+      color: white;
+      z-index: 10;
+      position: fixed;
+      top: 0; left: 0;
+    }
+    .loading-text {
+      font-size: 32px; margin-top: 20px;
+    }
+    .rotating-image {
+      width: 250px;
+      height: auto;
+      animation: rotateSteering 6s linear infinite;
+      transform-origin: center center;
+    }
+    .right-heading {
+      position: fixed;
+      top: 30%;
+      left: 700px;
+      transform: translateY(-50%);
+      color: rgb(29, 34, 69);
+      font-size: 12rem;
+      font-family: 'MyFont' , cursive;
+      font-weight: 2px;
+      z-index: 4;
+      display: none;
+    }
+
+    .location-tag {
+      position: fixed;
+      top: 42%;
+      left: 1000px;
+      transform: translateY(-50%);
+      color: rgb(0, 0, 0);
+      font-size: 1.5rem;
+      font-family: 'MyFFont' , cursive;
+      z-index: 4;
+      display: none;
+    }
+
+    @keyframes rotateSteering {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes typing { from { width: 0; } to { width: 26ch; } }
+    @keyframes blink { 50% { border-color: transparent; } }
+    .typing-animation {
+      animation: typing 4s steps(26) forwards, blink 0.7s step-end infinite;
+    }
+    .no-blink { animation: none; border-right: none; }
+  </style>
+</head>
+<body>
+  
+  <div id="background-image"></div>
+  <div class="photo-strip-wrapper" id="strip-wrapper">
+    <div class="photo-strip-scroll" id="strip">
+      <a href="index.html"><img src="./Home/Home.png" alt="Home" /></a>
+      <a href="aboutme.html"><img src="./Home/About me.png" alt="About" /></a>
+      <a href="project.html"><img src="./Home/Pro.png" alt="Projects" /></a>
+      <a href="skill.html"><img src="./Home/Skills.png" alt="Skills" /></a>
+      <a href="exp.html"><img src="./Home/Exp.png" alt="Home Duplicate" /></a>
+      <a href="cert.html"><img src="./Home/Certif.png" alt="About Duplicate" /></a>
+      <a href="contact.html"><img src="./Home/Contact me.png" alt="Contact" /></a>
+    </div>
+    <div class="fade-top"></div>
+    <div class="fade-bottom"></div>
+  </div>
+</div>
+
+  <div id="camera">
+    <img src="./Home/camera.png" alt="Camera" />
+  </div>
+  <div class="right-heading" id="right-heading">Kasis Shrestha</div>
+  <div class="location-tag">Based in Kathmandu, Nepal</div>
+  
+  <div id="time-info" style="
+    position: fixed;
+    top: 46%;
+    left: 1070px;
+    transform: translateY(-50%);
+    font-family: 'MyFFont' , cursive;
+    font-size: 1.5rem;
+    color: #080808;     /* semicolon added */
+    z-index: 4;
+    display: none;
+    line-height: 1.5;
+  ">
+  <div id="ktm-time">Time:</div>
+  </div>
+
+
+  <script>
+    const stripLinks = document.querySelectorAll('#strip a');
+    const camera = document.getElementById('camera');
+    const stripWrapper = document.getElementById('strip-wrapper');
+
+    // Show everything immediately
+    document.getElementById('background-image').style.opacity = '1';
+    stripWrapper.style.display = 'block';
+    camera.style.display = 'block';
+    document.querySelector('.right-heading').style.display = 'block';
+    document.querySelector('.location-tag').style.display = 'block';
+   
+
+    setInterval(() => {
+      const camRect = camera.getBoundingClientRect();
+      stripLinks.forEach(link => link.classList.remove('clickable'));
+      stripLinks.forEach(link => {
+        const img = link.querySelector('img');
+        const rect = img.getBoundingClientRect();
+        const centerY = rect.top + rect.height / 2;
+        if (centerY > camRect.top && centerY < camRect.bottom) {
+          link.classList.add('clickable');
+        }
+      });
+    }, 300);
+
+    const timeInfo = document.getElementById('time-info');
+      timeInfo.style.display = 'block';
+
+  function updateClockTimes() {
+    const now = new Date();
+
+    const options = {
+      timeZone: 'Asia/Kathmandu',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true
+    };
+
+    const nepalTime = now.toLocaleTimeString('en-US', options);
+    document.getElementById('ktm-time').textContent = `${nepalTime}`;
+  }
+
+  setInterval(updateClockTimes, 1000);
+  updateClockTimes();
+
+  </script>
+
+</body>
+</html>

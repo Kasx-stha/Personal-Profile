@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel ="icon" type="image/png" href="1.png">
+  <title>Project</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter&display=swap" rel="stylesheet">
+  
+  <style>
+  @font-face {
+    font-family: 'PortfolioFont';
+    src: url('fonts/NyghtSerif.ttf') format('truetype');
+    }
+
+    body, html {
+      height: 400vh;
+      background-color: #FAF7F3;
+      font-family: 'PortfolioFont', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .project-header {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      font-size: 80px;
+      font-weight: bold;
+      font-family: 'PortfolioFont', sans-serif;
+      color: #123458;
+      transition: all 1.5s ease-in-out;
+      z-index: 10;
+    }
+
+    .project-header.shrink-1 {
+      top: 45%;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    .project-header.shrink-2 {
+      top: 40%;
+      transform: translate(-50%, -50%) scale(0.6);
+    }
+
+    .project-header.shrink-3 {
+      top: 35%;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    .project-header.shrink-4 {
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%) scale(0.6);
+      font-size: 40px;
+    }
+
+    .project-content {
+      position: fixed;
+      bottom: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 700px;
+      width: 100%;
+      opacity: 0;
+      transition: bottom 1.5s ease, opacity 1.5s ease;
+      z-index: 5;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .project-content.visible-1,
+    .project-content.visible-2,
+    .project-content.visible-3 {
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .project-content.visible-1 {
+      bottom: -200px;
+      opacity: 0.3;
+    }
+
+    .project-content.visible-2 {
+      bottom: -100px;
+      opacity: 0.6;
+    }
+
+    .project-content.visible-3 {
+      bottom: 20%;
+      opacity: 1;
+    }
+
+    .project-box {
+      position: relative;
+      background-color: #1f1f1f;
+      border-radius: 15px;
+      overflow: hidden;
+      height: 500px;
+      transition: all 1s ease-in-out;
+      display: none;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      transition: transform 0.7s ease;
+    }
+
+    .project-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 252, 252, 0.94);
+      color: #123458;
+      padding: 20px;
+      font-size: 20px;
+      text-align: justify;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      display: none;
+      align-items: flex-start;
+      flex-direction: column;       /* Add to stack content vertically */
+      overflow: auto;               /* Allow scrolling if content is too big */
+      box-sizing: border-box; 
+      display: flex;
+      justify-content: center;
+      font-family: 'Bitter', serif; 
+    }
+
+    .project-box:hover .project-overlay {
+      opacity: 1;
+    }
+
+    .typewriter {
+      overflow: hidden;
+      white-space: pre-wrap;
+      word-break: break-word;       /* Force long words to wrap */
+      max-height: 100%;             /* Limit height to container */
+      box-sizing: border-box;
+    }
+
+    /* Reveal content only when scrolled */
+    .project-content.visible-1 .project-box,
+    .project-content.visible-2 .project-box,
+    .project-content.visible-3 .project-box {
+      display: block;
+    }
+
+    .project-content.visible-1 .project-image,
+    .project-content.visible-2 .project-image,
+    .project-content.visible-3 .project-image {
+      display: block;
+    }
+
+    .project-content.visible-1 .project-overlay,
+    .project-content.visible-2 .project-overlay,
+    .project-content.visible-3 .project-overlay {
+      display: flex;
+    }
+    .project-link {
+      text-decoration: none;
+      display: block;
+      width: 100%;
+    }
+
+ .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #F6F4EB;
+      z-index: 10000;
+      padding: 15px 60px 15px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      display: flex;
+      justify-content: flex-end; 
+    }
+
+    .navbar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 30px;
+      margin-right: 60px;
+    }
+
+    .navbar li {
+      display: inline;
+    }
+
+    .navbar a {
+      color: #27445D;
+      text-decoration: none;
+      font-family: Bitter, serif;
+      font-size: 1rem;
+      transition: color 0.3s;
+      line-height: 2;
+    }
+
+    .navbar a:hover {
+      color: #f16100;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+
+  <!-- Project Header -->
+  <div class="project-header" id="headerText">PROJECT</div>
+
+  <!-- Project Box -->
+    <div class="project-content visible-1" id="projectContent">
+      <a href="https://github.com/Kasx-stha/Integrated-Secuirty-Solutions-IS-" target="_blank" rel="noopener noreferrer" class="project-link">
+        <div class="project-box">
+          <img src="./extra/IS.png" alt="Integrated Security Solutions" class="project-image">
+          <div class="project-overlay">
+            <p class="typewriter" id="typewriter-text"></p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+  <script>
+    const header = document.getElementById('headerText');
+    const projectContent = document.getElementById('projectContent');
+    const typewriterTarget = document.getElementById("typewriter-text");
+
+    const text = `Integrated Security Solutions is a project that integrates several distinct systems, combining them into a single, powerful platform. This integrated solution makes it easier to detect, prevent, and learn attack patterns, and analyse logs centrally. This system integrates a signature-based Intrusion Detection System (IDS) developed in Python, the Snort Intrusion Prevention System (IPS), the CertiCeption honeypot, and the Graylog log management platform.`;
+
+    // Auto-typewriter on page load
+    let i = 0;
+    const speed = 15;
+    function type() {
+      if (i < text.length) {
+        typewriterTarget.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      }
+    }
+    window.onload = type;
+
+    // Scroll animations
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+
+      header.classList.remove('shrink-1', 'shrink-2', 'shrink-3', 'shrink-4');
+      projectContent.classList.remove('visible-1', 'visible-2', 'visible-3');
+
+      if (scrollY > 100 && scrollY <= 400) {
+        header.classList.add('shrink-1');
+        projectContent.classList.add('visible-1');
+      } else if (scrollY > 400 && scrollY <= 800) {
+        header.classList.add('shrink-2');
+        projectContent.classList.add('visible-2');
+      } else if (scrollY > 800) {
+        header.classList.add('shrink-4');
+        projectContent.classList.add('visible-3');
+      }
+    });
+
+    const navContainer = document.getElementById('navbar-container');
+
+    (async () => {
+      try {
+        // Make the path explicit and relative to the current page
+        const res = await fetch('./navbar.html', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const html = await res.text();
+        navContainer.innerHTML = html;
+      } catch (err) {
+        console.error('Navbar load failed:', err);
+        // Fallback so the page still has a nav
+        navContainer.innerHTML = `
+          <nav class="navbar">
+            <ul>
+              <li><a href="./index.html">Home</a></li>
+              <li><a href="./aboutme.html">About me</a></li>
+              <li><a href="./project.html">Projects</a></li>
+              <li><a href="./skill.html">Skills</a></li>
+              <li><a href="./exp.html">Experience</a></li>
+              <li><a href="./cert.html">Certification</a></li>
+              <li><a href="./contact.html">Contact me</a></li>
+            </ul>
+          </nav>`;
+      }
+    })();
+</script>
+
+</body>
+</html>

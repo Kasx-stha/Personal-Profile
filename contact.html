@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="1.png">
+  <title>Contact Me</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'MyFont';
+      src: url('fonts/Amoresa') format('opentype');
+      font-display: swap;
+    }
+
+    body {
+      background: #ffffff;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: #FAF7F3;
+      z-index: 10000;
+      padding: 15px 60px 15px 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      display: flex;
+      justify-content: flex-end; 
+    }
+
+  .navbar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 30px;
+      margin-right: 60px;
+    }
+
+  .navbar li {
+      display: inline;
+    }
+
+  .navbar a {
+      color: #27445D;
+      text-decoration: none;
+      font-family: Bitter, serif;
+      font-size: 1rem;
+      transition: color 0.3s;
+      line-height: 2;
+    }
+
+  .navbar a:hover {
+      color: #f16100;
+    }
+
+    .page-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 100px;
+    }
+
+    .slot {
+      position: absolute;
+      bottom: 180px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 480px;
+      height: 800px;
+      overflow: hidden;
+      z-index: 3;
+    }
+
+    .postcard {
+      background-image: url('contact/test.jpeg');
+      background-size: cover;
+      background-position: center;
+      position: absolute;
+      bottom: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      border-radius: 20px;
+      padding: 50px;
+      box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.2),
+        inset 0 0 2px rgba(0, 0, 0, 0.05);
+      transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.4s ease;
+    }
+
+    .postcard h2 {
+      text-align: center;
+      margin-bottom: 8px;
+      font-family: 'MyFont', serif;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .postcard input,
+    .postcard textarea {
+      width: 100%;
+      margin-bottom: 20px;
+      padding: 20px 24px;
+      font-family: 'MyFont', serif;
+      font-size: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      outline: none;
+      background-color: #fffdf8;
+      box-sizing: border-box;
+      box-shadow:
+        inset 2px 2px 4px rgba(0, 0, 0, 0.05),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.6);
+      transition: all 0.3s ease;
+      color: #333;
+    }
+
+    .postcard button {
+      background: #AF3E3E;
+      color: white;
+      font-size: 15px;
+      font-family: 'MyFont', serif;
+      padding: 10px 0;
+      border-radius: 14px;
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow:
+        0 4px 10px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(251, 0, 0, 0.05);
+    }
+
+    .postcard button:hover {
+      background: linear-gradient(to right, #641B2E, #641B2E);
+      transform: translateY(-1px);
+    }
+
+    .postcard button:active {
+      transform: translateY(1px);
+    }
+
+    .envelope {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 360px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+      z-index: 2;
+    }
+
+    .show-envelope {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .envelope-body {
+      position: absolute;
+      bottom: 50px;
+      width: 100%;
+      height: 350px;
+      background: url(./contact/envbgg.jpg);
+      background-repeat: repeat;
+      background-blend-mode: multiply;
+      border-radius: 0 0 20px 20px;
+      box-shadow: inset 0 20px 30px rgba(0, 0, 0, 0.1);
+      border-top: 1px solid #1b4691;
+      z-index: 1;
+    }
+
+    .envelope-flap {
+      position: absolute;
+      bottom: 400px;
+      width: 100%;
+      height: 250px;
+      background: url(./contact/envbgg.jpg);
+      background-size: contain;
+      background-repeat: repeat;
+      background-blend-mode: multiply;
+      clip-path: polygon(0 100%, 50% 0, 100% 100%);
+      transform-origin: bottom;
+      transform: rotateX(0deg);
+      transition: transform 1s ease;
+      z-index: 2;
+    }
+
+    .closed .envelope-flap {
+      transform: rotateX(-180deg);
+    }
+
+    .stamp {
+      position: absolute;
+      top: 150px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      width: 60px;
+      height: auto;
+      opacity: 0;
+      z-index: 4;
+    }
+
+    @keyframes stampPop {
+      0% { transform: translateX(-50%) scale(0); opacity: 0; }
+      60% { transform: translateX(-50%) scale(1.2); opacity: 1; }
+      100% { transform: translateX(-50%) scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar-container"></div>
+ 
+  <div class="page-wrapper"></div>
+
+  <div class="slot">
+    <div class="postcard" id="postcard">
+      <h2>Contact Me</h2>
+      <form id="contact-form">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="📨 New Message from Portfolio!">
+        <input type="text" name="_honey" style="display:none">
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="envelope" id="envelope">
+    <div class="envelope-flap" id="flap"></div>
+    <div class="envelope-body"></div>
+    <img src="./contact/stamp.png" alt="Stamp" class="stamp" id="stamp" />
+  </div>
+
+<script>
+  function sendPostcard() {
+    const postcard = document.getElementById('postcard');
+    const envelope = document.getElementById('envelope');
+    const stamp = document.getElementById('stamp');
+
+    envelope.classList.add('show-envelope');
+    setTimeout(() => { postcard.style.transform = 'translate(-50%, 90px)'; }, 100);
+    setTimeout(() => { postcard.style.opacity = '0'; }, 700);
+    setTimeout(() => { envelope.classList.add('closed'); }, 1100);
+    setTimeout(() => { stamp.style.animation = 'stampPop 1.5s ease forwards'; }, 1700);
+  }
+
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    fetch("https://formsubmit.co/shresthakashish0@gmail.com", {
+      method: "POST",
+      body: formData
+    })
+    .then(response => {
+      if (response.ok) {
+        sendPostcard();
+        form.reset();
+      } else {
+        alert("Message pathauna sakiena.");
+      }
+    })
+    .catch(error => {
+      console.error("Form error:", error);
+      alert("Error while sending message.");
+    });
+  });
+  const navContainer = document.getElementById('navbar-container');
+
+    (async () => {
+      try {
+        // Make the path explicit and relative to the current page
+        const res = await fetch('./navbar.html', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const html = await res.text();
+        navContainer.innerHTML = html;
+      } catch (err) {
+        console.error('Navbar load failed:', err);
+        // Fallback so the page still has a nav
+        navContainer.innerHTML = `
+          <nav class="navbar">
+            <ul>
+              <li><a href="./index.html">Home</a></li>
+              <li><a href="./aboutme.html">About me</a></li>
+              <li><a href="./project.html">Projects</a></li>
+              <li><a href="./skill.html">Skills</a></li>
+              <li><a href="./exp.html">Experience</a></li>
+              <li><a href="./cert.html">Certification</a></li>
+              <li><a href="./contact.html">Contact me</a></li>
+            </ul>
+          </nav>`;
+      }
+    })();
+</script>
+
+</body>
+</html>
