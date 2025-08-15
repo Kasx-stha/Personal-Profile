@@ -10,23 +10,17 @@
   <title>Portfolio</title>
   
   <style>
-      @font-face{
-        font-family: "MyFont";
-        src: url("fonts/russkopis.woff2") format("woff2"),
-            url("fonts/russkopis.otf") format("opentype");
-        font-weight: 300 700; /* or exact weight(s) */
-        font-style: normal;
-        font-display: swap;
-      }
-      @font-face{
-        font-family: "MyFFont";
-        src: url("fonts/NewYork.woff2") format("woff2"),
-            url("fonts/NewYork.otf") format("opentype");
-        font-weight: 300 700;
-        font-style: normal;
-        font-display: swap;
-      }
+      @font-face {
+      font-family: 'MyFont';
+      src: url('fonts/russkopis.otf') format('opentype');
+      font-display: swap;
+    } 
 
+      @font-face {
+      font-family: 'MyFFont';
+      src: url('fonts/NewYork.otf') format('opentype');
+      font-display: swap;
+    } 
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
@@ -138,8 +132,7 @@
       left: 700px;
       transform: translateY(-50%);
       color: rgb(29, 34, 69);
-      font-size: clamp(3rem, 9vw, 10rem);  /* cap the maximum */
-      line-height: 0.95;
+      font-size: 10rem;
       font-family: 'MyFont' , cursive;
       font-weight: 2px;
       z-index: 4;
