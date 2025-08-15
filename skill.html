@@ -12,24 +12,28 @@
   <link href="https://fonts.googleapis.com/css2?family=Bitter&display=swap" rel="stylesheet">
 
   <style>
-    
+    :root {
+      --nav-h: 72px; /* updated dynamically after navbar loads */
+    }
+
     body, html {
       margin: 0;
       padding: 0;
       overflow: hidden;
+      background: #FFFDF6;
     }
-  
 
     .wrapper {
       display: flex;
       width: 200vw;
-      height: 100vh;
+      height: calc(100vh - var(--nav-h));
+      margin-top: var(--nav-h);
       transition: transform 0.8s ease-in-out;
     }
 
     .page {
       width: 100vw;
-      height: 100vh;
+      height: calc(100vh - var(--nav-h));
       position: relative;
       display: flex;
       justify-content: center;
@@ -39,16 +43,16 @@
     }
 
     .title {
-      font-family: 'Libre Baskerville', sans-serif;
+      font-family: 'Libre Baskerville', serif;
       color: #102E50;
-      font-size: 4.5rem;
-      margin-bottom: 200px;
+      font-size: clamp(2rem, 6vw, 4.5rem);
+      margin-bottom: clamp(40px, 10vh, 200px);
     }
 
     .card-stack {
       position: relative;
-      width: 600px;
-      height: 400px;
+      width: clamp(280px, 60vw, 600px);
+      height: clamp(200px, 40vw, 400px);
       perspective: 1500px;
     }
 
@@ -65,11 +69,12 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      font-size: 2.5rem;
+      font-size: clamp(1.2rem, 2.5vw, 2.5rem);
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
       opacity: 0;
       transform: translateY(80px) scale(0.9);
       transition: all 0.8s ease-in-out;
+      padding: 20px;
     }
 
     .card.active {
@@ -91,7 +96,7 @@
     }
 
     .swipe-btn {
-      position: absolute;
+      position: fixed;
       bottom: 40px;
       right: 30px;
       background: #000;
@@ -101,6 +106,7 @@
       border-radius: 8px;
       cursor: pointer;
       z-index: 100;
+      border: none;
     }
 
     .card.policy {
@@ -113,7 +119,7 @@
     }
 
     .card-icon {
-      width: 120px;
+      width: clamp(64px, 12vw, 120px);
       height: auto;
       margin-bottom: 10px;
     }
@@ -132,14 +138,11 @@
       transform-style: preserve-3d;
     }
 
-    #page1 {
+    #page1, #page2 {
       background: #FFFDF6;
     }
 
-    #page2 {
-      background: #FFFDF6;
-    }
-
+    /* YOUR SAME NAVBAR STYLE */
     .navbar {
       position: fixed;
       top: 0;
@@ -183,7 +186,6 @@
 <body>
 
  <div id="navbar-container"></div>
-
 
   <div class="wrapper" id="wrapper">
     <!-- Technical Skills Page -->
@@ -288,7 +290,6 @@
 
     function handleScroll(e) {
       if (isScrolling) return;
-
       const direction = e.deltaY > 0 ? 'down' : 'up';
 
       if (currentPage === 0) {
@@ -305,46 +306,32 @@
 
       isScrolling = true;
       clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => {
-        isScrolling = false;
-      }, 600);
+      scrollTimer = setTimeout(() => { isScrolling = false; }, 600);
     }
 
     updateStack(techCards, techIndex);
     updateStack(softCards, softIndex);
     window.addEventListener("wheel", handleScroll, { passive: true });
 
-    // ✨ Observer for rotating icons only when visible
+    // Rotate icons only when visible
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        const icon = entry.target;
-        if (entry.isIntersecting) {
-          icon.classList.add('rotate');
-        } else {
-          icon.classList.remove('rotate');
-        }
+        entry.target.classList.toggle('rotate', entry.isIntersecting);
       });
-    }, {
-      root: null,
-      threshold: 0.6
-    });
+    }, { root: null, threshold: 0.6 });
 
-    document.querySelectorAll('.card-icon').forEach(icon => {
-      observer.observe(icon);
-    });
+    document.querySelectorAll('.card-icon').forEach(icon => observer.observe(icon));
 
-     const navContainer = document.getElementById('navbar-container');
-
+    // Measure navbar height after load to set space
+    const navContainer = document.getElementById('navbar-container');
     (async () => {
       try {
-        // Make the path explicit and relative to the current page
         const res = await fetch('./navbar.html', { cache: 'no-cache' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const html = await res.text();
         navContainer.innerHTML = html;
       } catch (err) {
         console.error('Navbar load failed:', err);
-        // Fallback so the page still has a nav
         navContainer.innerHTML = `
           <nav class="navbar">
             <ul>
@@ -357,9 +344,16 @@
               <li><a href="./contact.html">Contact me</a></li>
             </ul>
           </nav>`;
+      } finally {
+        requestAnimationFrame(() => {
+          const nav = navContainer.querySelector('.navbar');
+          if (nav) {
+            const h = Math.ceil(nav.getBoundingClientRect().height);
+            document.documentElement.style.setProperty('--nav-h', h + 'px');
+          }
+        });
       }
     })();
-</script>
-
+  </script>
 </body>
 </html>
