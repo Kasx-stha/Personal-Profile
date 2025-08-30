@@ -12,137 +12,89 @@
   <link href="https://fonts.googleapis.com/css2?family=Bitter&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --nav-h: 72px; /* updated dynamically after navbar loads */
-    }
+    :root { --nav-h: 72px; }
 
-    body, html {
+    /* Layout */
+    html, body {
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      overflow: hidden;                 /* no page scroll, we handle gestures */
       background: #FFFDF6;
     }
 
     .wrapper {
-      display: flex;
-      width: 200vw;
-      height: calc(100vh - var(--nav-h));
+      display: flex;                     /* ALWAYS horizontal */
+      width: 200vw;                      /* two pages side-by-side */
+      height: calc(100svh - var(--nav-h));
       margin-top: var(--nav-h);
-      transition: transform 0.8s ease-in-out;
+      transition: transform 0.6s ease-in-out;
+      will-change: transform;
     }
 
     .page {
       width: 100vw;
-      height: calc(100vh - var(--nav-h));
+      height: calc(100svh - var(--nav-h));
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
       flex-direction: column;
+      padding: 16px;
+      box-sizing: border-box;
     }
 
     .title {
       font-family: 'Libre Baskerville', serif;
       color: #102E50;
       font-size: clamp(2rem, 6vw, 4.5rem);
-      margin-bottom: clamp(40px, 10vh, 200px);
+      margin-bottom: clamp(24px, 8vh, 140px);
     }
 
     .card-stack {
       position: relative;
-      width: clamp(280px, 60vw, 600px);
-      height: clamp(200px, 40vw, 400px);
+      width: clamp(280px, 80vw, 620px);
+      height: clamp(240px, 56vw, 460px); /* ensures decent height on phones */
       perspective: 1500px;
     }
 
     .card {
       font-family: 'Bodoni Moda', serif;
       position: absolute;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       border-radius: 16px;
       background: linear-gradient(135deg, #ffffff, #f1f1ff);
-      color: rgb(0, 0, 0);
+      color: #000;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      font-size: clamp(1.2rem, 2.5vw, 2.5rem);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      font-size: clamp(1rem, 2.8vw, 2.2rem);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
       opacity: 0;
       transform: translateY(80px) scale(0.9);
-      transition: all 0.8s ease-in-out;
+      transition: transform 0.5s ease, opacity 0.5s ease;
       padding: 20px;
+      box-sizing: border-box;
     }
 
-    .card.active {
-      z-index: 3;
-      opacity: 1;
-      transform: translateY(0px) scale(1.05);
-    }
+    .card.active   { z-index: 3; opacity: 1; transform: translateY(0) scale(1.03); }
+    .card.previous { z-index: 2; opacity: 0.35; transform: translate(-36px,-36px) scale(0.95) rotate(-5deg); }
+    .card.next     { z-index: 1; opacity: 0.22; transform: translate(36px,36px)   scale(0.9)  rotate(5deg); }
 
-    .card.previous {
-      z-index: 2;
-      opacity: 0.3;
-      transform: translate(-40px, -40px) scale(0.95) rotate(-5deg);
-    }
-
-    .card.next {
-      z-index: 1;
-      opacity: 0.2;
-      transform: translate(40px, 40px) scale(0.9) rotate(5deg);
-    }
-
-    .swipe-btn {
-      position: fixed;
-      bottom: 40px;
-      right: 30px;
-      background: #000;
-      color: white;
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 100;
-      border: none;
-    }
-
-    .card.policy {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .card-icon {
-      width: clamp(64px, 12vw, 120px);
-      height: auto;
-      margin-bottom: 10px;
-    }
+    .card-icon { width: clamp(56px, 14vw, 120px); height: auto; margin-bottom: 10px; }
 
     @keyframes swingY {
-      0%   { transform: rotateY(0deg); }
-      25%  { transform: rotateY(15deg); }
-      50%  { transform: rotateY(0deg); }
-      75%  { transform: rotateY(-15deg); }
+      0% { transform: rotateY(0deg); }
+      25% { transform: rotateY(15deg); }
+      50% { transform: rotateY(0deg); }
+      75% { transform: rotateY(-15deg); }
       100% { transform: rotateY(0deg); }
     }
+    .card-icon.rotate { animation: swingY 3s ease-in-out infinite; transform-origin: center; transform-style: preserve-3d; }
 
-    .card-icon.rotate {
-      animation: swingY 3s ease-in-out infinite;
-      transform-origin: center center;
-      transform-style: preserve-3d;
-    }
-
-    #page1, #page2 {
-      background: #FFFDF6;
-    }
-
-    /* YOUR SAME NAVBAR STYLE */
+    /* Navbar (fallback markup injected if navbar.html not found) */
     .navbar {
       position: fixed;
       top: 0;
@@ -151,24 +103,19 @@
       z-index: 10000;
       padding: 15px 60px 15px 0;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      text-align: center;
       display: flex;
       justify-content: flex-end; 
+      align-items: center;
     }
-
     .navbar ul {
       list-style: none;
-      padding: 0;
       margin: 0;
       display: flex;
       gap: 30px;
       margin-right: 60px;
+      padding: 0;
+      flex-wrap: wrap;
     }
-
-    .navbar li {
-      display: inline;
-    }
-
     .navbar a {
       color: #27445D;
       text-decoration: none;
@@ -177,99 +124,89 @@
       transition: color 0.3s;
       line-height: 2;
     }
+    .navbar a:hover { color: #f16100; }
+    .navbar .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px; height: 22px;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+    .navbar .menu-toggle span { display:block; height:3px; background:#27445D; border-radius:2px; }
 
-    .navbar a:hover {
-      color: #f16100;
+    /* Responsive tweaks (do NOT flip wrapper to column) */
+    @media (max-width: 768px) {
+      .title { margin-bottom: clamp(18px, 6vh, 80px); }
+      .card { font-size: clamp(1rem, 4.2vw, 1.4rem); }
+      .navbar { justify-content: space-between; padding: 12px 16px; }
+      .navbar ul {
+        position: absolute; top: 56px; right: 0; width: 220px;
+        background: #FAF7F3; flex-direction: column; align-items: flex-start;
+        gap: 0; padding: 10px; display: none; box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      }
+      .navbar ul.show { display: flex; }
+      .navbar .menu-toggle { display: flex; }
+    }
+
+    /* Helper: page headers */
+    #page1, #page2 { background: #FFFDF6; }
+
+    /* Button */
+    .swipe-btn {
+      position: fixed;
+      bottom: 16px; right: 16px;
+      background: #000; color: #fff;
+      padding: 10px 18px; font-size: 0.95rem;
+      border-radius: 10px; border: 0; cursor: pointer; z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
     }
   </style>
 </head>
 <body>
 
- <div id="navbar-container"></div>
+  <div id="navbar-container"></div>
 
   <div class="wrapper" id="wrapper">
-    <!-- Technical Skills Page -->
+    <!-- Technical Skills -->
     <div class="page" id="page1">
       <div class="title">Technical Skills</div>
       <div class="card-stack" id="techStack">
-        <div class="card policy">
-          <img src="./skill/policy.png" alt="Policy Icon" class="card-icon">
-          <p> Policy and Procedure Development </p>
-        </div>
-        <div class="card python">
-          <img src="./skill/python.png" alt="Python Icon" class="card-icon">
-          <p> Python </p>
-        </div>
-        <div class="card html">
-          <img src="./skill/html.png" alt="HTML Icon" class="card-icon">
-          HTML
-        </div>
-        <div class="card css">
-          <img src="./skill/css.png" alt="CSS Icon" class="card-icon">
-          CSS
-        </div>
-        <div class="card ai">
-          <img src="./skill/ai.png" alt="AI Icon" class="card-icon">
-          Adobe Illustrator
-        </div>
-        <div class="card id">
-          <img src="./skill/id.png" alt="ID Icon" class="card-icon">
-          Adobe InDesign
-        </div>
+        <div class="card policy"><img src="./skill/policy.png" class="card-icon"><p>Policy and Procedure Development</p></div>
+        <div class="card python"><img src="./skill/python.png" class="card-icon"><p>Python</p></div>
+        <div class="card html"><img src="./skill/html.png" class="card-icon" alt="">HTML</div>
+        <div class="card css"><img src="./skill/css.png" class="card-icon" alt="">CSS</div>
+        <div class="card ai"><img src="./skill/ai.png" class="card-icon" alt="">Adobe Illustrator</div>
+        <div class="card id"><img src="./skill/id.png" class="card-icon" alt="">Adobe InDesign</div>
       </div>
     </div>
 
-    <!-- Soft Skills Page -->
+    <!-- Soft Skills -->
     <div class="page" id="page2">
       <div class="title">Soft Skills</div>
       <div class="card-stack" id="softStack">
-        <div class="card communication">
-          <img src="./skill/com.webp" alt="Communication Icon" class="card-icon">
-          Communication
-        </div>
-        <div class="card Creativity">
-          <img src="./skill/creativity.webp" alt="Creativity Icon" class="card-icon">
-          Creativity
-        </div>
-        <div class="card team">
-          <img src="./skill/team.webp" alt="Team Icon" class="card-icon">
-          Teamwork
-        </div>
-        <div class="card time">
-          <img src="./skill/time.webp" alt="Time Icon" class="card-icon">
-          Time Management
-        </div>
-        <div class="card critical">
-          <img src="./skill/critical.webp" alt="Critical Icon" class="card-icon">
-          Critical Thinking
-        </div>
-        <div class="card leader">
-          <img src="./skill/leadership.webp" alt="Leadership Icon" class="card-icon">
-          Leadership
-        </div>
-        <div class="card project">
-          <img src="./skill/project.webp" alt="Project Icon" class="card-icon">
-          Project Management
-        </div>
-        <div class="card problem">
-          <img src="./skill/problem.webp" alt="Problem Icon" class="card-icon">
-          Problem Solving
-        </div>
+        <div class="card communication"><img src="./skill/com.webp" class="card-icon" alt="">Communication</div>
+        <div class="card creativity"><img src="./skill/creativity.webp" class="card-icon" alt="">Creativity</div>
+        <div class="card team"><img src="./skill/team.webp" class="card-icon" alt="">Teamwork</div>
+        <div class="card time"><img src="./skill/time.webp" class="card-icon" alt="">Time Management</div>
+        <div class="card critical"><img src="./skill/critical.webp" class="card-icon" alt="">Critical Thinking</div>
+        <div class="card leader"><img src="./skill/leadership.webp" class="card-icon" alt="">Leadership</div>
+        <div class="card project"><img src="./skill/project.webp" class="card-icon" alt="">Project Management</div>
+        <div class="card problem"><img src="./skill/problem.webp" class="card-icon" alt="">Problem Solving</div>
       </div>
     </div>
   </div>
 
-  <button class="swipe-btn" onclick="togglePage()">Swipe</button>
+  <button class="swipe-btn" id="pageToggle">Swipe</button>
 
   <script>
     const wrapper = document.getElementById("wrapper");
-    let currentPage = 0;
+    const pageToggleBtn = document.getElementById("pageToggle");
 
+    let currentPage = 0; // 0: Technical, 1: Soft
     const techCards = document.querySelectorAll("#techStack .card");
     const softCards = document.querySelectorAll("#softStack .card");
-
-    let techIndex = 0;
-    let softIndex = 0;
+    let techIndex = 0, softIndex = 0;
 
     function updateStack(cards, index) {
       cards.forEach((card, i) => {
@@ -280,18 +217,17 @@
       });
     }
 
-    function togglePage() {
-      currentPage = currentPage === 0 ? 1 : 0;
+    function goToPage(p) {
+      currentPage = (p + 2) % 2;
       wrapper.style.transform = `translateX(-${currentPage * 100}vw)`;
     }
 
-    let isScrolling = false;
-    let scrollTimer;
+    pageToggleBtn.addEventListener("click", () => goToPage(currentPage ^ 1));
 
-    function handleScroll(e) {
-      if (isScrolling) return;
-      const direction = e.deltaY > 0 ? 'down' : 'up';
-
+    // Flip cards (one step up/down)
+    let busy = false, cooldown;
+    function flip(direction) {
+      if (busy) return;
       if (currentPage === 0) {
         techIndex = direction === 'down'
           ? (techIndex + 1) % techCards.length
@@ -303,38 +239,68 @@
           : (softIndex - 1 + softCards.length) % softCards.length;
         updateStack(softCards, softIndex);
       }
-
-      isScrolling = true;
-      clearTimeout(scrollTimer);
-      scrollTimer = setTimeout(() => { isScrolling = false; }, 600);
+      busy = true;
+      clearTimeout(cooldown);
+      cooldown = setTimeout(() => busy = false, 450);
     }
 
+    // Desktop wheel
+    window.addEventListener("wheel", (e) => {
+      const direction = e.deltaY > 0 ? 'down' : 'up';
+      flip(direction);
+    }, { passive: true });
+
+    // Touch gestures: horizontal = switch page, vertical = flip card
+    let startX = 0, startY = 0;
+    window.addEventListener("touchstart", e => {
+      const t = e.touches[0];
+      startX = t.clientX;
+      startY = t.clientY;
+    }, { passive: true });
+
+    window.addEventListener("touchend", e => {
+      const t = e.changedTouches[0];
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+
+      const absX = Math.abs(dx);
+      const absY = Math.abs(dy);
+      const SWIPE_H = 60;   // px threshold
+      const SWIPE_V = 50;
+
+      if (absX > absY && absX > SWIPE_H) {
+        // horizontal swipe: left/right to change page
+        if (dx < 0) goToPage(1); else goToPage(0);
+      } else if (absY > SWIPE_V) {
+        // vertical swipe: up/down to flip cards
+        const dir = dy < 0 ? 'down' : 'up';
+        flip(dir);
+      }
+    }, { passive: true });
+
+    // Init visible cards
     updateStack(techCards, techIndex);
     updateStack(softCards, softIndex);
-    window.addEventListener("wheel", handleScroll, { passive: true });
 
-    // Rotate icons only when visible
+    // Icon animation (only when in view)
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        entry.target.classList.toggle('rotate', entry.isIntersecting);
-      });
+      entries.forEach(entry => entry.target.classList.toggle('rotate', entry.isIntersecting));
     }, { root: null, threshold: 0.6 });
+    document.querySelectorAll('.card-icon').forEach(i => observer.observe(i));
 
-    document.querySelectorAll('.card-icon').forEach(icon => observer.observe(icon));
-
-    // Measure navbar height after load to set space
+    // Load navbar or fallback
     const navContainer = document.getElementById('navbar-container');
     (async () => {
       try {
         const res = await fetch('./navbar.html', { cache: 'no-cache' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
-        const html = await res.text();
-        navContainer.innerHTML = html;
+        navContainer.innerHTML = await res.text();
       } catch (err) {
         console.error('Navbar load failed:', err);
         navContainer.innerHTML = `
           <nav class="navbar">
-            <ul>
+            <div class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></div>
+            <ul id="navbar-links">
               <li><a href="./index.html">Home</a></li>
               <li><a href="./aboutme.html">About me</a></li>
               <li><a href="./project.html">Projects</a></li>
@@ -344,14 +310,9 @@
               <li><a href="./contact.html">Contact me</a></li>
             </ul>
           </nav>`;
-      } finally {
-        requestAnimationFrame(() => {
-          const nav = navContainer.querySelector('.navbar');
-          if (nav) {
-            const h = Math.ceil(nav.getBoundingClientRect().height);
-            document.documentElement.style.setProperty('--nav-h', h + 'px');
-          }
-        });
+        const menuToggle = document.getElementById('menu-toggle');
+        const navbarLinks = document.getElementById('navbar-links');
+        menuToggle.addEventListener('click', () => navbarLinks.classList.toggle('show'));
       }
     })();
   </script>
