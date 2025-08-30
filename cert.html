@@ -1,122 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel ="icon" type="image/png" href="1.png">
-  <title>Certification</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bitter&display=swap" rel="stylesheet">
-  
-  <style>
-    @font-face {
-      font-family: 'MyCustomFont';
-      src: url('fonts/') format('opentype');
-      font-display: swap;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="icon" type="image/png" href="1.png">
+<title>Certification</title>
+<link href="https://fonts.googleapis.com/css2?family=Bitter&display=swap" rel="stylesheet">
 
-    @font-face {
-      font-family: 'MyFont';
-      src: url('fonts/Rasputin.otf') format('opentype');
-      font-display: swap;
-    }
+<style>
+@font-face {
+  font-family: 'MyCustomFont';
+  src: url('fonts/') format('opentype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'MyFont';
+  src: url('fonts/Rasputin.otf') format('opentype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Font';
+  src: url('fonts/black mango.ttf') format('opentype');
+  font-display: swap;
+}
 
-    @font-face {
-      font-family: 'Font';
-      src: url('fonts/black mango.ttf') format('opentype');
-      font-display: swap;
-    }
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  background: black;
+}
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-      height: 100%;
-      background: black;
-    }
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: rgb(2, 2, 2);
+  transition: clip-path 0.9s cubic-bezier(0.8, 0.1, 0.2, 1);
+}
 
-    .container {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-    }
+.page1 { background-color: #FFFCFB; z-index: 1; }
+.page2, .page3, .page4, .page5, .page6, .page7, .page8 {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+}
+.page2 { background-color: #F8F8F8; z-index: 2; }
+.page3 { background-color: #FFFCFB; z-index: 3; }
+.page4 { background-color: #F8F8F8; z-index: 4; }
+.page5 { background-color: #FFFCFB; z-index: 5; }
+.page6 { background-color: #F8F8F8; z-index: 6; }
+.page7 { background-color: #FFFCFB; z-index: 7; }
+.page8 { background-color: #F8F8F8; z-index: 8; }
 
-    .page {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4rem;
-      color: rgb(2, 2, 2);
-      transition: clip-path 0.9s cubic-bezier(0.8, 0.1, 0.2, 1);
-    }
+.step0 { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
+.step1 { clip-path: polygon(0 0, 20% 0, 0 20%); }
+.step2 { clip-path: polygon(0 0, 60% 0, 0 60%); }
+.step3 { clip-path: polygon(0 0, 90% 0, 0 90%); }
+.step4 { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
 
-    .page1 { background-color: #FFFCFB; z-index: 1; }
+.content {
+  text-align: center;
+  animation: fadeIn 1s ease 0.5s forwards;
+  opacity: 0;
+  max-width: 80%;
+}
 
-    .page2, .page3, .page4, .page5, .page6, .page7 {
-      clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-    }
+.content h1 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  margin-bottom: 1rem;
+  font-family: 'MyFont', serif;
+  color: #0B1D51;
+}
 
-    .page2 { background-color: #F8F8F8; z-index: 2; }
-    .page3 { background-color: #FFFCFB; z-index: 3; }
-    .page4 { background-color: #F8F8F8; z-index: 4; }
-    .page5 { background-color: #FFFCFB; z-index: 5; }
-    .page6 { background-color: #F8F8F8; z-index: 6; }
-    .page7 { background-color: #FFFCFB; z-index: 7; }
+.content h2 {
+  font-size: clamp(1rem, 2vw, 1.8rem);
+  margin-bottom: 1rem;
+  font-family: serif;
+}
 
-    .step0 { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
-    .step1 { clip-path: polygon(0 0, 20% 0, 0 20%); }
-    .step2 { clip-path: polygon(0 0, 60% 0, 0 60%); }
-    .step3 { clip-path: polygon(0 0, 90% 0, 0 90%); }
-    .step4 { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+.content p {
+  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  margin-bottom: 2rem;
+  font-family: 'Bitter', serif;
+  line-height: 1.6;
+}
 
-    .content {
-      text-align: center;
-      animation: fadeIn 1s ease 0.5s forwards;
-      opacity: 0;
-      max-width: 80%;
-    }
+.content button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  background: white;
+  color: black;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
 
-    .content h1 {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      font-family: 'MyFont', serif;
-      color: #0B1D51;
-    }
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
-    .content h2 {
-
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-      font-family: serif;
-        
-    }
-
-    .content p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      font-family: 'Bitter', serif;
-    }
-
-    .content button {
-      padding: 12px 24px;
-      font-size: 1rem;
-      background: white;
-      color: black;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
- .navbar {
+.navbar {
       position: fixed;
       top: 0;
       width: 100%;
@@ -127,9 +122,10 @@
       text-align: center;
       display: flex;
       justify-content: flex-end; 
+      align-items: center;
     }
 
-  .navbar ul {
+    .navbar ul {
       list-style: none;
       padding: 0;
       margin: 0;
@@ -138,11 +134,11 @@
       margin-right: 60px;
     }
 
-  .navbar li {
+    .navbar li {
       display: inline;
     }
 
-  .navbar a {
+    .navbar a {
       color: #27445D;
       text-decoration: none;
       font-family: Bitter, serif;
@@ -151,322 +147,254 @@
       line-height: 2;
     }
 
-  .navbar a:hover {
+    .navbar a:hover {
       color: #f16100;
     }
 
-  </style>
+    /* Hamburger for responsive navbar */
+    .navbar .menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      margin-right: 20px;
+    }
+
+    .navbar .menu-toggle span {
+      display: block;
+      height: 3px;
+      background: #27445D;
+      border-radius: 2px;
+    }
+
+    @media (max-width: 992px) {
+      .content h1 { font-size: 2.2rem; }
+      .content h2 { font-size: 1.4rem; }
+      .content p { font-size: 1rem; }
+      .content { max-width: 90%; padding: 0 10px; }
+
+      .content div { flex-direction: column; gap: 20px; }
+      .content img { max-width: 90%; height: auto; margin: auto; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar ul {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        background: #FAF7F3;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+        padding: 10px;
+        display: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      }
+
+      .navbar ul.show { display: flex; }
+
+      .navbar li { margin: 10px 0; }
+
+      .navbar .menu-toggle { display: flex; }
+
+      .navbar { justify-content: space-between; padding: 15px 20px; }
+    }
+</style>
 </head>
 <body>
-   
-    <div id="navbar-container"></div>
 
-    <div class="page page1" id="page1">
+<div id="navbar-container"></div>
+
+<!-- Page 1 -->
+<div class="page page1" id="page1">
   <div class="content" style="width: 90%; max-width: 1200px; margin: auto;">
-    
-    <!-- Page-specific heading at top -->
-    <h1 style="font-size: 3.5rem; text-align: center; margin-bottom: 2.5rem;">Certified Governance Risk and Compliance Analyst (CGRCA) </h1>
-
-    <!-- Image on Left, Description on Right -->
+    <h1>Certified Governance Risk and Compliance Analyst (CGRCA)</h1>
     <div style="display: flex; align-items: center; justify-content: center; gap: 50px; flex-wrap: wrap;">
-      
-      <!-- Certificate Image -->
-      <img 
-        src="./cert/CGRCA.png" 
-        alt="Certificate" 
-        style="max-width: 620px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);" 
-      />
-      
-      <!-- Description -->
+      <img src="./cert/CGRCA.png" alt="Certificate" style="max-width: 620px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);" />
       <div style="max-width: 500px; text-align: left;">
-        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #000000;">Issued by: Hack & Fix Academy</h2>
-         <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify;">
-          This certificate verifies my completion of the Certified Governance, Risk, and Compliance Analyst (CGRCA) program through Hack and Fix, demonstrating my expertise in governance, risk management, and compliance standards.
-        </p>
+        <h2>Issued by: Hack & Fix Academy</h2>
+        <p>This certificate verifies my completion of the Certified Governance, Risk, and Compliance Analyst (CGRCA) program through Hack and Fix, demonstrating my expertise in governance, risk management, and compliance standards.</p>
       </div>
     </div>
-    
   </div>
 </div>
 
-
-    <div class="page page2" id="page2">
+<!-- Page 2 -->
+<div class="page page2" id="page2">
   <div class="content" style="width: 90%; max-width: 1200px; margin: auto;">
-    
-    <!-- Page-specific heading at top -->
-    <h1 style="font-size: 3.5rem; text-align: center; margin-bottom: 2.5rem;">Certified Network Security Practitioner (CNSP)</h1>
-
-    <!-- Image on Left, Description on Right -->
+    <h1>Certified Network Security Practitioner (CNSP)</h1>
     <div style="display: flex; align-items: center; justify-content: center; gap: 50px; flex-wrap: wrap;">
-      
-      <!-- Certificate Image -->
-      <img 
-        src="./cert/CNSP.png" 
-        alt="Certificate" 
-        style="max-width: 620px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);" 
-      />
-      
-      <!-- Description -->
+      <img src="./cert/CNSP.png" alt="Certificate" style="max-width: 620px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);" />
       <div style="max-width: 500px; text-align: left;">
-        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #000000;">Issued by: The SecOps Group</h2>
-         <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify;">
-          This certificate verifies my completion of the Certified Network Security Practitioner (CNSP) program through The SecOps Group, demonstrating my proficiency in network defense, threat mitigation, and security best practices.
-        </p>
+        <h2>Issued by: The SecOps Group</h2>
+        <p>This certificate verifies my completion of the Certified Network Security Practitioner (CNSP) program through The SecOps Group, demonstrating my proficiency in network defense, threat mitigation, and security best practices.</p>
       </div>
     </div>
-    
   </div>
 </div>
 
-
- <div class="page page3" id="page3">
+<!-- Page 3 -->
+<div class="page page3" id="page3">
   <div class="content" style="width: 90%; max-width: 1200px; margin: auto;">
-    
-    <!-- Page-specific heading at top -->
-    <h1 style="font-size: 3.5rem; text-align: center; margin-bottom: 2.5rem;">Certified SME Cyber Security Officer (CSCSO)</h1>
-
-    <!-- Image on Left, Description on Right -->
+    <h1>Certified SME Cyber Security Officer (CSCSO)</h1>
     <div style="display: flex; align-items: center; justify-content: center; gap: 50px; flex-wrap: wrap;">
-      
-      <!-- Certificate Image -->
-      <img 
-        src="./cert/smb.png" 
-        alt="Certificate" 
-        style="max-width: 620px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);" 
-      />
-      
-      <!-- Description -->
+      <img src="./cert/smb.png" alt="Certificate" style="max-width: 620px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);" />
       <div style="max-width: 500px; text-align: left;">
-        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #000000;">Issued by: EU Cyber Academy</h2>
-         <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify;">
-          This certificate verifies my completion of the Certified SME Cyber Security Officer (CSCSO) program from the EU Cyber Academy. It reflects my ability to manage cybersecurity programs for small and medium-sized enterprises (SMEs), including securing networks, preventing threats, and responding to cyber incidents.
-        </p>
+        <h2>Issued by: EU Cyber Academy</h2>
+        <p>This certificate verifies my completion of the Certified SME Cyber Security Officer (CSCSO) program from the EU Cyber Academy. It reflects my ability to manage cybersecurity programs for SMEs, including securing networks, preventing threats, and responding to cyber incidents.</p>
       </div>
     </div>
-    
   </div>
 </div>
-  
+
+<!-- Page 4 -->
 <div class="page page4" id="page4">
   <div class="content" style="width: 90%; max-width: 1000px; margin: auto; text-align: left;">
-    
-    <!-- Heading -->
-    <h1 style="font-size: 3.5rem; margin-bottom: 2rem; text-align: center;">Certified ISO/IEC 27001:2022 Lead Auditor</h1>
-
-    <!-- Icon + Description -->
+    <h1>Certified ISO/IEC 27001:2022 Lead Auditor</h1>
     <div style="display: flex; align-items: flex-start; justify-content: center; gap: 40px; flex-wrap: wrap;">
-      
-      <!-- Icon Image -->
-      <img 
-        src="./cert/ISO.png" 
-        alt="ISO Icon" 
-        style="width: 300px; height: 300px; object-fit: contain;" 
-      />
-
-      <!-- Text Content -->
+      <img src="./cert/ISO.png" alt="ISO Icon" style="width: 300px; height: 300px; object-fit: contain;" />
       <div style="max-width: 550px;">
-        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #000000;">Issued by: MasterMind Assurance</h2>
-        <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify;">
-          This certificate verifies my qualification as a Certified Lead Auditor for ISO/IEC 27001:2022. It demonstrates my ability to lead audits of information security management systems (ISMS), ensure compliance with international standards, and promote a risk-based approach to information security governance.
-        </p>
+        <h2>Issued by: MasterMind Assurance</h2>
+        <p>This certificate verifies my qualification as a Certified Lead Auditor for ISO/IEC 27001:2022. It demonstrates my ability to lead audits of information security management systems (ISMS), ensure compliance with international standards, and promote a risk-based approach to information security governance.</p>
       </div>
-
     </div>
   </div>
 </div>
 
-</div>
-  
+<!-- Page 5 -->
 <div class="page page5" id="page5">
   <div class="content" style="width: 90%; max-width: 1000px; margin: auto; text-align: left;">
-    
-    <!-- Heading -->
-    <h1 style="font-size: 3.5rem; margin-bottom: 2rem; text-align: center;">AWS Academy Cloud Operations</h1>
-
-    <!-- Icon + Description -->
+    <h1>AWS Academy Cloud Operations</h1>
     <div style="display: flex; align-items: flex-start; justify-content: center; gap: 40px; flex-wrap: wrap;">
-      
-      <!-- Icon Image -->
-      <img 
-        src="./cert/Cloud Op.png" 
-        alt="Cloud Icon" 
-        style="width: 300px; height: 300px; object-fit: contain;" 
-      />
-
-      <!-- Text Content -->
+      <img src="./cert/Cloud Op.png" alt="Cloud Icon" style="width: 300px; height: 300px; object-fit: contain;" />
       <div style="max-width: 550px;">
-        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #000000;">Issued by: Amazon Web Services Training and Certification</h2>
-        <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify;">
-          This certificate verifies my completion of the AWS Academy Cloud Operations course. It highlights my knowledge of managing cloud infrastructure, monitoring resources, handling incidents, automating tasks, and maintaining operational excellence in AWS environments.
-        </p>
+        <h2>Issued by: Amazon Web Services Training and Certification</h2>
+        <p>This certificate verifies my completion of the AWS Academy Cloud Operations course. It highlights my knowledge of managing cloud infrastructure, monitoring resources, handling incidents, automating tasks, and maintaining operational excellence in AWS environments.</p>
       </div>
-
     </div>
   </div>
 </div>
 
+<!-- Page 6 -->
 <div class="page page6" id="page6">
   <div class="content" style="width: 90%; max-width: 1000px; margin: auto; text-align: left;">
-    
-    <!-- Heading -->
-    <h1 style="font-size: 3.5rem; margin-bottom: 2rem; text-align: center;">AWS Academy Cloud Security Foundations</h1>
-
-    <!-- Icon + Description -->
+    <h1>AWS Academy Cloud Security Foundations</h1>
     <div style="display: flex; align-items: flex-start; justify-content: center; gap: 40px; flex-wrap: wrap;">
-      
-      <!-- Icon Image -->
-      <img 
-        src="./cert/Cloud Sec.png" 
-        alt="Cloud Icon" 
-        style="width: 300px; height: 300px; object-fit: contain;" 
-      />
-
-      <!-- Text Content -->
+      <img src="./cert/Cloud Sec.png" alt="Cloud Icon" style="width: 300px; height: 300px; object-fit: contain;" />
       <div style="max-width: 550px;">
-        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #000000;">Issued by: Amazon Web Services Training and Certification</h2>
-        <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify;">
-          This certificate verifies my completion of the AWS Academy Cloud Security Foundations course. It reflects my ability to implement best practices in AWS cloud security, including identity and access management, threat detection, compliance, and data protection strategies.
-        </p>
-        </div>
-
+        <h2>Issued by: Amazon Web Services Training and Certification</h2>
+        <p>This certificate verifies my completion of the AWS Academy Cloud Security Foundations course. It reflects my ability to implement best practices in AWS cloud security, including identity and access management, threat detection, compliance, and data protection strategies.</p>
+      </div>
     </div>
   </div>
 </div>
- 
+
+<!-- Page 7 -->
 <div class="page page7" id="page7">
   <div class="content" style="width: 90%; max-width: 1000px; margin: auto; text-align: left;">
-    
-    <!-- Heading -->
-    <h1 style="font-size: 3.5rem; margin-bottom: 2rem; text-align: center;">AWS Academy Data Center Technician</h1>
-
-    <!-- Icon + Description -->
+    <h1>AWS Academy Data Center Technician</h1>
     <div style="display: flex; align-items: flex-start; justify-content: center; gap: 40px; flex-wrap: wrap;">
-      
-      <!-- Icon Image -->
-      <img 
-        src="./cert/Data Tech.png" 
-        alt="Cloud Icon" 
-        style="width: 300px; height: 300px; object-fit: contain;" 
-      />
-
-      <!-- Text Content -->
+      <img src="./cert/Data Tech.png" alt="Cloud Icon" style="width: 300px; height: 300px; object-fit: contain;" />
       <div style="max-width: 550px;">
-        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #000000;">Issued by: Amazon Web Services Training and Certification</h2>
-        <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify;">
-          This certificate verifies my completion of the AWS Academy Data Center Technician program. It signifies my readiness to support data center operations, including hardware maintenance, infrastructure monitoring, and compliance with physical security and safety protocols.
-        </p>
+        <h2>Issued by: Amazon Web Services Training and Certification</h2>
+        <p>This certificate verifies my completion of the AWS Academy Data Center Technician program. It signifies my readiness to support data center operations, including hardware maintenance, infrastructure monitoring, and compliance with physical security and safety protocols.</p>
       </div>
-
     </div>
   </div>
 </div>
 
+<!-- Page 8 -->
 <div class="page page8" id="page8">
   <div class="content" style="width: 90%; max-width: 1000px; margin: auto; text-align: left;">
-    
-    <!-- Heading -->
-    <h1 style="font-size: 3.5rem; margin-bottom: 2rem; text-align: center;">AWS Academy Cloud Foundations</h1>
-
-    <!-- Icon + Description -->
+    <h1>AWS Academy Cloud Foundations</h1>
     <div style="display: flex; align-items: flex-start; justify-content: center; gap: 40px; flex-wrap: wrap;">
-      
-      <!-- Icon Image -->
-      <img 
-        src="./cert/Cloud.png" 
-        alt="Cloud Icon" 
-        style="width: 300px; height: 300px; object-fit: contain;" 
-      />
-
-      <!-- Text Content -->
+      <img src="./cert/Cloud.png" alt="Cloud Icon" style="width: 300px; height: 300px; object-fit: contain;" />
       <div style="max-width: 550px;">
-        <h2 style="margin: 0 0 1rem 0; font-size: 1.8rem; color: #000000;">Issued by: Amazon Web Services Training and Certification</h2>
-        <p style="font-size: 1.2rem; line-height: 1.8; text-align: justify;">
-        This certificate verifies my completion of the AWS Academy Cloud Foundations course. It demonstrates my understanding of fundamental AWS cloud concepts, core services, security, architecture, pricing, and support, establishing a solid base for further cloud specialization.
-        </p>
+        <h2>Issued by: Amazon Web Services Training and Certification</h2>
+        <p>This certificate verifies my completion of the AWS Academy Cloud Foundations course. It demonstrates my understanding of fundamental AWS cloud concepts, core services, security, architecture, pricing, and support, establishing a solid base for further cloud specialization.</p>
       </div>
-
     </div>
   </div>
 </div>
 
+<script>
+let scrollStep = 0;
+const totalStepsPerPage = 4;
+const pages = [
+  { element: document.getElementById('page2') },
+  { element: document.getElementById('page3') },
+  { element: document.getElementById('page4') },
+  { element: document.getElementById('page5') },
+  { element: document.getElementById('page6') },
+  { element: document.getElementById('page7') },
+  { element: document.getElementById('page8') }
+];
 
-  <script>
-    let scrollStep = 0;
-    const totalStepsPerPage = 4;
-    const pages = [
-      { element: document.getElementById('page2') },
-      { element: document.getElementById('page3') },
-      { element: document.getElementById('page4') },
-      { element: document.getElementById('page5') },
-      { element: document.getElementById('page6') },
-      { element: document.getElementById('page7') }
-    ];
-  
-    const maxSteps = totalStepsPerPage * pages.length;
+const maxSteps = totalStepsPerPage * pages.length;
+let isScrolling = false;
 
-    let isScrolling = false;
+const handleScroll = (delta) => {
+  if (isScrolling) return;
+  isScrolling = true;
 
-    const handleScroll = (delta) => {
-      if (isScrolling) return;
-      isScrolling = true;
+  if (delta > 0 && scrollStep < maxSteps) scrollStep++;
+  else if (delta < 0 && scrollStep > 0) scrollStep--;
 
-      if (delta > 0 && scrollStep < maxSteps) {
-        scrollStep++;
-      } else if (delta < 0 && scrollStep > 0) {
-        scrollStep--;
-      }
+  pages.forEach((page, index) => {
+    const step = scrollStep - index * totalStepsPerPage;
+    const safeStep = Math.max(0, Math.min(4, step));
+    page.element.className = `page page${index + 2} step${safeStep}`;
+  });
 
-      pages.forEach((page, index) => {
-        const step = scrollStep - index * totalStepsPerPage;
-        const safeStep = Math.max(0, Math.min(4, step));
-        page.element.className = `page page${index + 2} step${safeStep}`;
+  setTimeout(() => { isScrolling = false; }, 400);
+};
+
+window.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  handleScroll(e.deltaY);
+}, { passive: false });
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === "ArrowDown" || e.key === "ArrowRight") handleScroll(1);
+  else if (e.key === "ArrowUp" || e.key === "ArrowLeft") handleScroll(-1);
+});
+
+// Load navbar
+const navContainer = document.getElementById('navbar-container');
+(async () => {
+  try {
+    const res = await fetch('./navbar.html', { cache: 'no-cache' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const html = await res.text();
+    navContainer.innerHTML = html;
+  } catch (err) {
+    console.error('Navbar load failed:', err);
+    navContainer.innerHTML = `
+      <nav class="navbar">
+          <div class="menu-toggle" id="menu-toggle">
+            <span></span><span></span><span></span>
+          </div>
+          <ul id="navbar-links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./aboutme.html">About me</a></li>
+            <li><a href="./project.html">Projects</a></li>
+            <li><a href="./skill.html">Skills</a></li>
+            <li><a href="./exp.html">Experience</a></li>
+            <li><a href="./cert.html">Certification</a></li>
+            <li><a href="./contact.html">Contact me</a></li>
+          </ul>
+        </nav>`;
+
+      const menuToggle = document.getElementById('menu-toggle');
+      const navbarLinks = document.getElementById('navbar-links');
+      menuToggle.addEventListener('click', () => {
+        navbarLinks.classList.toggle('show');
       });
-
-      setTimeout(() => {
-        isScrolling = false;
-      }, 400);
-    };
-
-    window.addEventListener('wheel', (e) => {
-      e.preventDefault();
-      handleScroll(e.deltaY);
-    }, { passive: false });
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === "ArrowDown" || e.key === "ArrowRight") {
-        handleScroll(1);
-      } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
-        handleScroll(-1);
-      }
-    });
-
-    
-  const navContainer = document.getElementById('navbar-container');
-
-    (async () => {
-      try {
-        // Make the path explicit and relative to the current page
-        const res = await fetch('./navbar.html', { cache: 'no-cache' });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const html = await res.text();
-        navContainer.innerHTML = html;
-      } catch (err) {
-        console.error('Navbar load failed:', err);
-        // Fallback so the page still has a nav
-        navContainer.innerHTML = `
-          <nav class="navbar">
-            <ul>
-              <li><a href="./index.html">Home</a></li>
-              <li><a href="./aboutme.html">About me</a></li>
-              <li><a href="./project.html">Projects</a></li>
-              <li><a href="./skill.html">Skills</a></li>
-              <li><a href="./exp.html">Experience</a></li>
-              <li><a href="./cert.html">Certification</a></li>
-              <li><a href="./contact.html">Contact me</a></li>
-            </ul>
-          </nav>`;
-      }
-    })();
+    }
+  })();
 </script>
 
 </body>
