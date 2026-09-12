@@ -1,0 +1,329 @@
+/* ==========================================================================
+   KASIS SHRESTHA — design tokens & base system
+   Typography is the interface.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* -- color (light, default) -- */
+  --bg: #fdfdfc;
+  --bg-raised: #ffffff;
+  --fg: #0a0a0a;
+  --fg-secondary: #4a4a46;
+  --muted: #8f8c86;
+  --border: rgba(10, 10, 10, 0.12);
+  --border-subtle: rgba(10, 10, 10, 0.07);
+  --border-strong: rgba(10, 10, 10, 0.3);
+  --invert-bg: #0a0a0a;
+  --invert-fg: #fdfdfc;
+  --danger: #b3261e;
+  --video-darken: 0.85;
+
+  /* -- type scale -- */
+  --fs-hero: clamp(3rem, 5.5vw, 11.5rem);
+  --fs-display: clamp(2.75rem, 8.5vw, 6.75rem);
+  --fs-h1: clamp(2.25rem, 6vw, 4.25rem);
+  --fs-h2: clamp(1.65rem, 3.6vw, 2.75rem);
+  --fs-h3: clamp(1.15rem, 2vw, 1.5rem);
+  --fs-lead: clamp(1.05rem, 1.6vw, 1.35rem);
+  --fs-body: 0.9375rem;
+  --fs-small: 0.8125rem;
+  --fs-meta: 0.6875rem;
+
+  /* -- rhythm -- */
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --section-y: clamp(5rem, 12vw, 9.5rem);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --nav-h: 84px;
+
+  /* -- font -- */
+  --font-body: var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* -- dark palette: follows the OS setting automatically, unless the visitor
+   has explicitly chosen a theme with the toggle (data-theme wins either way) -- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0a0a0a;
+    --bg-raised: #131312;
+    --fg: #fdfdfc;
+    --fg-secondary: #b8b5ae;
+    --muted: #77746d;
+    --border: rgba(253, 253, 252, 0.14);
+    --border-subtle: rgba(253, 253, 252, 0.08);
+    --border-strong: rgba(253, 253, 252, 0.32);
+    --invert-bg: #fdfdfc;
+    --invert-fg: #0a0a0a;
+    --danger: #ff8a75;
+    --video-darken: 0.45;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0a0a0a;
+  --bg-raised: #131312;
+  --fg: #fdfdfc;
+  --fg-secondary: #b8b5ae;
+  --muted: #77746d;
+  --border: rgba(253, 253, 252, 0.14);
+  --border-subtle: rgba(253, 253, 252, 0.08);
+  --border-strong: rgba(253, 253, 252, 0.32);
+  --invert-bg: #fdfdfc;
+  --invert-fg: #0a0a0a;
+  --danger: #ff8a75;
+  --video-darken: 0.45;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: auto;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "ss01" 1, "cv01" 1;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+img,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+input,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* -- focus -- */
+:focus-visible {
+  outline: 1.5px solid var(--fg);
+  outline-offset: 4px;
+}
+
+/* -- selection -- */
+::selection {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* ==========================================================================
+   layout primitives
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
+}
+
+.section {
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+
+/* ==========================================================================
+   typography utilities
+   ========================================================================== */
+
+.eyebrow {
+  font-size: var(--fs-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.eyebrow--dark {
+  color: var(--fg-secondary);
+}
+
+.display {
+  font-size: var(--fs-display);
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  font-weight: 600;
+  margin: 0;
+}
+
+.h1 {
+  font-size: var(--fs-h1);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  font-weight: 600;
+  margin: 0;
+}
+
+.h2 {
+  font-size: var(--fs-h2);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  font-weight: 600;
+  margin: 0;
+}
+
+.h3 {
+  font-size: var(--fs-h3);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  font-weight: 500;
+  margin: 0;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  letter-spacing: -0.01em;
+  line-height: 1.45;
+  color: var(--fg-secondary);
+  font-weight: 400;
+  max-width: 42ch;
+}
+
+.body-sm {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--fg-secondary);
+}
+
+.mono-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+.link-underline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(1);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(0);
+  transform-origin: right;
+}
+
+.hr {
+  height: 1px;
+  width: 100%;
+  background: var(--border);
+  border: none;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100%;
+  left: 1rem;
+  z-index: 999;
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0.75rem 1.25rem;
+  font-size: var(--fs-small);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: top 0.2s var(--ease);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --nav-h: 68px;
+  }
+}
+
+/* ==========================================================================
+   reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
